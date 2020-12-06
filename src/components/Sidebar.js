@@ -15,7 +15,7 @@ import { Button } from '@material-ui/core';
 function Sidebar() {
     return (
         <Div>
-            <TwitterIcon />
+            <TwitterIcon className="sidebar_twitterIcon" />
             <SidebarOption text="Home" Icon={HomeIcon} active />
             <SidebarOption text="Expolore" Icon={SearchIcon}/>
             <SidebarOption text="Notifications" Icon={NotificationsNoneIcon}/>
@@ -40,6 +40,20 @@ function Sidebar() {
 export default Sidebar;
 
 const Div = styled.div`
+border-right: 1px solid var(--twitter-background);
+flex: 0.3;
+min-width: 250px;
+margin-top: 20px;
+padding-left: 20px;
+padding-right: 20px;
+
+.sidebar_twitterIcon{
+    color: var(--twitter-color);
+    font-size: 30px !important;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
 .tweetBTN{
     background-color: var(--twitter-color) !important;
     border: none !important;
