@@ -2,14 +2,20 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import TweetBox from './TweetBox';
 import Post from './Post';
+import db from '../firebase';
+import FlipMove from 'react-flip-move';
 
 function Feed() {
 
-    const [ post, setPost ] = useState([]);
+    const [ posts, setPosts ] = useState([]);
 
-    useEffect(()=>{
-    
-    },[])
+    useEffect(() => {
+     
+        db.collection('posts').onSnapshot(snapshot => (
+            setPosts(snapshot.docs.map(doc => doc.data()))
+        ))
+
+    },[]);
 
     return (
         <Div>
@@ -18,16 +24,21 @@ function Feed() {
             </div>
 
             <TweetBox />
-
+            
+            <FlipMove>
+            {posts.map( post => (
             <Post 
-                  displayName="Evyatar Haim"
-                  username="evyatarHaim"
-                  verified={true}
-                  timestamp 
-                  text="I challenge you to get a Junior developer's position until March"
-                  image="https://lh3.googleusercontent.com/proxy/uipWgr4C5q5R3ZC9H5C0EDBx7d2oSk6oHYLoT4jYLvxafCI_1gx_ACsXnUJ4_NTgUTR2gsj_mC1yiSikjI_dEVWsxviFDOy8nX0YiwbwdbRYQzqfuoOTagbniLssPQ" 
-                  avatar="https://scontent.ftlv15-1.fna.fbcdn.net/v/t1.0-9/117166831_10157709216476947_6742071503243751974_o.jpg?_nc_cat=103&ccb=2&_nc_sid=09cbfe&_nc_ohc=K37hjfWlSZoAX8ZcZ5J&_nc_ht=scontent.ftlv15-1.fna&oh=aa045b8059fb258d8ee9461d449d7496&oe=5FF46300"
+                  key={post.text}
+                  displayName={post.displayName}
+                  username={post.username}
+                  verified={post.verified}
+                  timestamp={post.timestamp}
+                  text={post.text}
+                  image={post.image}
+                  avatar={post.avatar}
             />
+            ))}
+            </FlipMove>
         </Div>
     )
 }
@@ -37,7 +48,7 @@ export default Feed;
 const Div = styled.div`
 flex: 0.4;
 border-right: 1px solid var(--twitter-background);
-min-width: fit-content;
+/* min-width: fit-content; */
 overflow-y:scroll;
 
 ::-webkit-scrollbar{

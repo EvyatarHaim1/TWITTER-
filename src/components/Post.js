@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Avatar } from '@material-ui/core';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
@@ -7,9 +7,17 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 
-function Post({ displayName, username, verified, timestamp, text, image, avatar }) {
+const Post = forwardRef(({ 
+    displayName, 
+    username, 
+    verified, 
+    text, 
+    image, 
+    timestamp, 
+    avatar
+    }, ref) => {
     return (
-        <Div>
+        <Div ref={ref}>
             <div className="post_avatar"> 
                <Avatar 
                        src={avatar}/>
@@ -21,7 +29,8 @@ function Post({ displayName, username, verified, timestamp, text, image, avatar 
                                 {displayName}
                                 <span className="postHeader_special">
                                    {verified && <VerifiedUserIcon className="post_badge" />}
-                                    {username}
+                                    {username} <br/>
+                                    {new Date(timestamp?.toDate()).toUTCString()}
                                 </span>
                             </h3>
                        </div>
@@ -41,7 +50,7 @@ function Post({ displayName, username, verified, timestamp, text, image, avatar 
             </div>
         </Div>
     )
-}
+});
 
 export default Post;
 
@@ -53,6 +62,9 @@ padding-bottom: 10px;
 
 .post_body > img{
     border-radius: 20px;
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
 }
 
 .postFooter{
