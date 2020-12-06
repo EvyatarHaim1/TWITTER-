@@ -12,23 +12,24 @@ function Post({ displayName, username, verified, timestamp, text, image, avatar 
         <Div>
             <div className="post_avatar"> 
                <Avatar 
-                       src="https://scontent.ftlv15-1.fna.fbcdn.net/v/t1.0-9/117166831_10157709216476947_6742071503243751974_o.jpg?_nc_cat=103&ccb=2&_nc_sid=09cbfe&_nc_ohc=K37hjfWlSZoAX8ZcZ5J&_nc_ht=scontent.ftlv15-1.fna&oh=aa045b8059fb258d8ee9461d449d7496&oe=5FF46300"/>
+                       src={avatar}/>
             </div>
             <div className="post_body">
                  <div className="post_header">
                        <div className="post_headerText" >
                             <h3>
-                                Evyatar Haim 
+                                {displayName}
                                 <span className="postHeader_special">
-                                    <VerifiedUserIcon className="post_badge"/>
+                                   {verified && <VerifiedUserIcon className="post_badge" />}
+                                    {username}
                                 </span>
                             </h3>
                        </div>
                        <div className="post_headerDescription">
-                           <p>I challenge you to get a Junior developer's position until March</p>
+                           <p>{text}</p>
                        </div>
                  </div>
-                 <img src="https://lh3.googleusercontent.com/proxy/uipWgr4C5q5R3ZC9H5C0EDBx7d2oSk6oHYLoT4jYLvxafCI_1gx_ACsXnUJ4_NTgUTR2gsj_mC1yiSikjI_dEVWsxviFDOy8nX0YiwbwdbRYQzqfuoOTagbniLssPQ" 
+                 <img src={image}
                       alt="post image" 
                 />
                 <div className="postFooter">
